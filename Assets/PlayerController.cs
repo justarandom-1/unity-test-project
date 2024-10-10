@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     private Vector2 movementVector;
     private Rigidbody2D rb;
-    private bool canJump = false;
+    private bool onGround = false;
+    private int jumpsFromGround = 0;
     // Start is called before the first frame update
 
     [SerializeField] int speed = 0;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,8 +23,8 @@ public class PlayerController : MonoBehaviour
         // rb.AddForce(new Vector2(0, 500));
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Touched ground");
-            canJump = true;
+            jumpsFromGround = 0;
+            onGround = true;
         }
     }
     void OnCollisionExit2D (Collision2D collision)
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
         // rb.AddForce(new Vector2(0, 500));
         if (collision.gameObject.CompareTag("Ground"))
         {
-            canJump = false;
+            onGround = false;
         }
     }
 
@@ -42,14 +44,20 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value){
         movementVector = value.Get<Vector2>();
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            Debug.Log("Shift pressed");
+            movementVector *= 2f;
+        }
         Debug.Log(movementVector);
-        // movementX = v.x;
-        // movementZ = v.y;
     }
 
     void OnJump(InputValue value){
-        if(canJump){
+        if(onGround){
             rb.AddForce(new Vector2(0, 500));
+            jumpsFromGround++;
+        }else if(jumpsFromGround < 2){
+            rb.AddForce(new Vector2(0, 400));
+            jumpsFromGround++;
         }
     }
 }
