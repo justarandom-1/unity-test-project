@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class camera : MonoBehaviour
 {
+    public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
+        audioSource.Play();
         transform.position = new Vector3(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y + 1,  - 2);
     }
 

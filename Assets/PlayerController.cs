@@ -52,10 +52,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnJump(InputValue value){
-        if(onGround){
-            rb.AddForce(new Vector2(0, 500));
-            jumpsFromGround++;
-        }else if(jumpsFromGround < 2){
+        if(onGround || jumpsFromGround < 2){
             rb.AddForce(new Vector2(0, 400));
             jumpsFromGround++;
         }
