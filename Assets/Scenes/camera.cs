@@ -8,6 +8,7 @@ public class camera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         audioSource.Play();
         transform.position = new Vector3(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y + 1,  - 2);
     }

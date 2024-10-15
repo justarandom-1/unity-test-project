@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int jumpsFromGround = 0;
     [SerializeField] int collectibles = 0;
     private GameObject star_block;
+    private GameObject star_block1;
     // Start is called before the first frame update
 
     [SerializeField] Animator animator;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         transform_ = GetComponent<Transform>();
         star_block = GameObject.Find("star_block");
+        star_block1 = GameObject.Find("star_block (1)");
     }
 
     void OnCollisionEnter2D (Collision2D collision)
@@ -55,7 +57,8 @@ public class PlayerController : MonoBehaviour
             other.gameObject.GetComponent<Animator>().SetTrigger("Collect");
 
             collectibles++;
-            star_block.GetComponent<SpriteRenderer>().sprite = Resources.LoadAll<Sprite>("Collectibles/star_block")[collectibles];
+            star_block.GetComponent<SpriteRenderer>().sprite = Resources.LoadAll<Sprite>("star_block")[collectibles];
+            star_block1.GetComponent<SpriteRenderer>().sprite = Resources.LoadAll<Sprite>("star_block")[collectibles];
             
             if(collectibles == 6){
                 GameObject.Find("william").SetActive(false);
